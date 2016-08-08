@@ -283,6 +283,16 @@ class Postgres
 
     result, num_queries, notifications
 
+  version: () =>
+    res, err = @query [[
+      SELECT current_setting('server_version') AS ver,
+             current_setting('server_version_num') AS num
+    ]]
+    return nil, err unless res
+
+    res[1].num = tonumber(res[1].num)
+    res[1]
+
   post: (q) =>
     @send_message MSG_TYPE.query, {q, NULL}
 

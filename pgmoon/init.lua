@@ -305,6 +305,16 @@ do
       end
       return result, num_queries, notifications
     end,
+    version = function(self)
+      local res, err = self:query([[      SELECT current_setting('server_version') AS ver,
+             current_setting('server_version_num') AS num
+    ]])
+      if not (res) then
+        return nil, err
+      end
+      res[1].num = tonumber(res[1].num)
+      return res[1]
+    end,
     post = function(self, q)
       return self:send_message(MSG_TYPE.query, {
         q,

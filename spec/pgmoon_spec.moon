@@ -64,6 +64,13 @@ describe "pgmoon with server", ->
     assert.falsy status
     assert.same [[the server does not support SSL connections]], err
 
+  describe "version()", ->
+    it "retrieves version number", ->
+      res = assert(pg\version!)
+      assert.is_table(res)
+      assert.is_string(res.ver)
+      assert.is_number(res.num)
+
   describe "with table", ->
     before_each ->
       assert pg\query [[

@@ -191,6 +191,20 @@ table or column names. This does not include regular values, you should use
 `escape_literal` for that. Identifier escaping is required when names collide
 with built in language keywords.
 
+### res, err = postgres:version()
+
+Retrieves the server's version number. On failure returns `nil` and the error
+message.
+
+On success, returns a `table` holding the server's version number as a string
+in the `ver` field, and in its numeric form in the `num` field.
+
+```lua
+local res = pg:version()
+print(res.ver) -- "9.4.8"
+print(res.num) -- 90408
+```
+
 ### str = tostring(postgres)
 
 Returns string representation of current state of `Postgres` object.
